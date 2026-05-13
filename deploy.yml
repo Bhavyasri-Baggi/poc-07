@@ -1,0 +1,16 @@
+- hosts: localhost
+  become: true
+
+  tasks:
+    - name: Stop old container
+      shell: docker stop poc-app || true
+
+    - name: Remove old container
+      shell: docker rm poc-app || true
+
+    - name: Build image
+      shell: docker build -t poc-app .
+
+    - name: Run container
+      shell: docker run -d -p 80:3000 --name poc-app poc-app
+``
